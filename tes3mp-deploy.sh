@@ -4,7 +4,7 @@ set -e
 
 VERSION="2.19.0"
 
-TES3MP_STABLE_VERSION="0.8.0"
+TES3MP_STABLE_VERSION="pierce"
 TES3MP_STABLE_VERSION_FILE="0.47.0\n000e8724cacaf0176f6220de111ca45098807e78"
 
 HELP_TEXT_HEADER="\
@@ -271,6 +271,10 @@ if [ $CMAKE_LOCAL ]; then
   export LD_LIBRARY_PATH=/usr/local/lib64:/usr/local/lib:"$LD_LIBRARY_PATH"
 fi
 
+# Use clang
+export CC=/usr/bin/clang
+export CXX=/usr/bin/clang++
+
 # Upgrade the TES3MP-deploy script
 if [ $SCRIPT_UPGRADE ]; then
 
@@ -341,6 +345,7 @@ if [ $INSTALL ]; then
           libboost-thread-dev \
           libboost-program-options-dev \
           libboost-system-dev \
+          libboost-iostreams-dev \
           libavcodec-dev \
           libavformat-dev \
           libavutil-dev \
@@ -354,7 +359,8 @@ if [ $INSTALL ]; then
           libncurses5-dev \
           luajit \
           libluajit-5.1-dev \
-          liblua5.1-0-dev
+          liblua5.1-0-dev \
+          liblz4-dev
         if [ $DISTROCODE == "stretch" ]; then
                sudo apt-get -y install libbullet-dev/stretch-backports
         else
@@ -419,6 +425,7 @@ press ENTER to continue"
           libboost-thread-dev \
           libboost-program-options-dev \
           libboost-system-dev \
+          libboost-iostreams-dev \
           libbullet-dev \
           libavcodec-dev \
           libavformat-dev \
@@ -433,7 +440,8 @@ press ENTER to continue"
           libncurses5-dev \
           luajit \
           libluajit-5.1-dev \
-          liblua5.1-0-dev
+          liblua5.1-0-dev \
+          liblz4-dev
         sudo sed -i "s_# deb-src_deb-src_g" /etc/apt/sources.list
     ;;
 
@@ -495,7 +503,7 @@ press ENTER to continue"
 
   # Pull software via git
   echo -e "\n>> Downloading software"
-  ! [ -e "$CODE" ] && git clone -b "${TARGET_COMMIT:-master}" https://github.com/TES3MP/TES3MP.git "$CODE"
+  ! [ -e "$CODE" ] && git clone -b "${TARGET_COMMIT:-master}" https://github.com/PierceLBrooks/openmw.git "$CODE"
   ! [ -e "$DEPENDENCIES"/raknet ] && git clone https://github.com/TES3MP/CrabNet "$DEPENDENCIES"/raknet
   ! [ -e "$KEEPERS"/CoreScripts ] && git clone -b "${TARGET_COMMIT:-master}" https://github.com/TES3MP/CoreScripts.git "$KEEPERS"/CoreScripts
 
