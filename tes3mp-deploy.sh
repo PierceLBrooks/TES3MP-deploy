@@ -505,7 +505,7 @@ press ENTER to continue"
   echo -e "\n>> Downloading software"
   ! [ -e "$CODE" ] && git clone -b "${TARGET_COMMIT:-master}" https://github.com/PierceLBrooks/openmw.git "$CODE"
   ! [ -e "$DEPENDENCIES"/raknet ] && git clone https://github.com/TES3MP/CrabNet "$DEPENDENCIES"/raknet
-  ! [ -e "$KEEPERS"/CoreScripts ] && git clone -b "${TARGET_COMMIT:-master}" https://github.com/TES3MP/CoreScripts.git "$KEEPERS"/CoreScripts
+  ! [ -e "$KEEPERS"/CoreScripts ] && git clone -b "${TARGET_COMMIT:-master}" https://github.com/PierceLBrooks/CoreScripts.git "$KEEPERS"/CoreScripts
 
   # Build RakNet
   echo -e "\n>> Building RakNet"
@@ -533,7 +533,7 @@ press ENTER to continue"
     cd "$KEEPERS"/CoreScripts
     git stash
     git pull
-    git checkout "0.8.0"
+    git checkout "$TES3MP_STABLE_VERSION"
     cd "$BASE"
 
     # Handle version file
