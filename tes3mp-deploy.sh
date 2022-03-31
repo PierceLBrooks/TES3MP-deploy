@@ -540,18 +540,6 @@ press ENTER to continue"
     HANDLE_VERSION_FILE=true
   fi
   
-  # Copy static server and client configs
-  echo -e "\n>> Copying server and client configs to their permanent place"
-  cp "$CODE"/files/tes3mp/tes3mp-{client,server}-default.cfg "$KEEPERS"
-
-  # Set home variable in tes3mp-server-default.cfg
-  echo -e "\n>> Autoconfiguring"
-  sed -i "s|home = .*|home = $KEEPERS/CoreScripts|g" "${KEEPERS}"/tes3mp-server-default.cfg
-
-  # Dirty hacks
-  echo -e "\n>> Applying some dirty hacks"
-  sed -i "s|tes3mp.lua,chat_parser.lua|server.lua|g" "${KEEPERS}"/tes3mp-server-default.cfg #Fixes server scripts
-
 fi
 
 # Check the remote repository for changes
@@ -672,6 +660,18 @@ if [ $REBUILD ]; then
       git checkout "$TARGET_COMMIT"
     fi
     cd "$BASE"
+    
+    # Copy static server and client configs
+    echo -e "\n>> Copying server and client configs to their permanent place"
+    cp "$CODE"/files/tes3mp/tes3mp-{client,server}-default.cfg "$KEEPERS"
+
+    # Set home variable in tes3mp-server-default.cfg
+    echo -e "\n>> Autoconfiguring"
+    sed -i "s|home = .*|home = $KEEPERS/CoreScripts|g" "${KEEPERS}"/tes3mp-server-default.cfg
+
+    # Dirty hacks
+    echo -e "\n>> Applying some dirty hacks"
+    sed -i "s|tes3mp.lua,chat_parser.lua|server.lua|g" "${KEEPERS}"/tes3mp-server-default.cfg #Fixes server scripts
 
     if [ $HANDLE_VERSION_FILE ]; then
       echo -e "\n(!) VERSION FILE OVERRIDE DETECTED (!)\nIf this was not intended, remove $KEEPERS/version"
