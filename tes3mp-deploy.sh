@@ -504,13 +504,13 @@ press ENTER to continue"
   # Pull software via git
   echo -e "\n>> Downloading software"
   ! [ -e "$CODE" ] && git clone -b "${TARGET_COMMIT:-master}" https://github.com/PierceLBrooks/openmw.git "$CODE"
-  ! [ -e "$DEPENDENCIES"/raknet ] && git clone https://github.com/TES3MP/CrabNet "$DEPENDENCIES"/raknet
+  ! [ -e "$DEPENDENCIES"/raknet ] && git clone https://github.com/PierceLBrooks/CrabNet "$DEPENDENCIES"/raknet
   ! [ -e "$KEEPERS"/CoreScripts ] && git clone -b "${TARGET_COMMIT:-master}" https://github.com/PierceLBrooks/CoreScripts.git "$KEEPERS"/CoreScripts
 
   # Build RakNet
   echo -e "\n>> Building RakNet"
   cd "$DEPENDENCIES"/raknet
-  git checkout 19e66190e83f53bcdcbcd6513238ed2e54878a21
+  git checkout pierce
 
   mkdir -p "$DEPENDENCIES"/raknet/build
   cd "$DEPENDENCIES"/raknet/build
