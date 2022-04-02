@@ -272,8 +272,8 @@ if [ $CMAKE_LOCAL ]; then
 fi
 
 # Use clang
-export CC=/usr/bin/clang
-export CXX=/usr/bin/clang++
+export CC=$(which clang)
+export CXX=$(which clang++)
 
 # Upgrade the TES3MP-deploy script
 if [ $SCRIPT_UPGRADE ]; then
